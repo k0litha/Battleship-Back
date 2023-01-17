@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-const dbConfig = require("./app/config/db.config");
 const app = express();
+require('dotenv').config()
 require("./socket.js")
 
 var corsOptions = {
-  origin: ["http://localhost:8081"],
+  origin: [ process.env.FRONTEND_URL],
   credentials: true
 }
 
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: "battleship-session",
-    secret: "COOKIE_SECRET", // should use as secret environment variable
+    secret: process.env.MONGO_URL,
     httpOnly: true
   })
 );
@@ -28,7 +28,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect("mongodb://localhost:27017/mean", {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -51,9 +51,9 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+const SERVER_PORT = process.env.SERVER_PORT || 8080;
+app.listen(SERVER_PORT, () => {
+  console.log(`Server is running on port ${SERVER_PORT}.`);
 });
 
 function initial() {
@@ -69,25 +69,16 @@ function initial() {
         console.log("added 'user' to roles collection");
       });
 
-      new Role({
-        name: "moderator"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
+    
+      // new Role({
+      //   name: "admin"
+      // }).save(err => {
+      //   if (err) {
+      //     console.log("error", err);
+      //   }
 
-        console.log("added 'moderator' to roles collection");
-      });
-
-      new Role({
-        name: "admin"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-      });
+      //   console.log("added 'admin' to roles collection");
+      // });
     }
   });
 }

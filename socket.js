@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app)
 const io = socketio(server, {
   cors: {
-    origin: '*',
+    origin: process.env.FRONTEND_URL,
   },
 })
 
@@ -14,7 +14,8 @@ const io = socketio(server, {
 app.use(cors());
 
 // Start server
-server.listen(3000, () => console.log(`Socket running on port ${3000}`))
+const SOCKET_PORT = process.env.SOCKET_PORT || 3000;
+server.listen(SOCKET_PORT, () => console.log(`Socket running on port ${SOCKET_PORT}`))
 
 
 const users = [];
