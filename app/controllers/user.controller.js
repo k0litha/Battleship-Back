@@ -39,7 +39,6 @@ exports.saveScore = (req, res) => {
               res.status(500).send({ message: err });
               return;
             }
-console.log("Score saved successfully!")
             res.send({ message: "Score saved successfully!" });
           });
         }

@@ -12,12 +12,18 @@ pipeline {
       }
     }  
 
+    stage('Test') {
+      steps {
+        bat 'mocha test/apitests.js --timeout 10000'
+      }
+  }
     stage('Deliver') {
       steps {
         bat 'START npm start'
         input message: 'Finished using the Battleship Server? (Click "Proceed" to continue)'
       }
   }
+
            
   }
 }

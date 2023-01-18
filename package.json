@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^10.2.0",
     "mongoose": "^5.13.13",
-    "socket.io": "^4.5.4"
+    "socket.io": "^4.5.4",
+    "supertest": "^6.3.3"
   }
 }
