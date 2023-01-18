@@ -7,16 +7,16 @@ pipeline {
             
     stage('Build') {
       steps {
-        bat 'npm install'
-        bat 'npm install forever -g'
+        sh 'npm install'
+        sh 'npm install forever -g'
 
       }
     }  
 
     stage('Deliver') {
       steps {
-        bat 'forever start server.js'
-        bat 'forever list'
+        sh 'forever start server.js'
+        sh 'forever list'
       }
   }
            
