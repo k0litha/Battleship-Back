@@ -15,6 +15,8 @@ pipeline {
     stage('Deliver') {
       steps {
         bat 'npm start'
+        input message: 'Finished using the Battleship Server? (Click "Proceed" to continue)'
+        kill
       }
   }
            
