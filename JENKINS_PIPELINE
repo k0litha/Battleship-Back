@@ -14,7 +14,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        bat 'mocha test/apitests.js --timeout 10000'
+        bat 'node ./node_modules/mocha/bin/mocha --timeout 10000'
       }
   }
     stage('Deliver') {
