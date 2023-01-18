@@ -13,7 +13,7 @@ pipeline {
 
     stage('Deliver') {
       steps {
-        bat 'pm2 npm start'
+        bat 'forever start server.js'
       }
   }
            
