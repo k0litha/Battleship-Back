@@ -28,10 +28,10 @@ io.on('connection', socket => {
 
   socket.on('create', room => {
     const playerId = 0;
-    function checkExistingUser(user) {return user.room === room && user.playerId === playerId}
+    function checkExistingUser(user) { return user.room === room && user.playerId === playerId }
     const existingUser = users.find(checkExistingUser)
     user = { id: socket.id, playerId, room };
-    if (existingUser) {console.log("Username is taken")}
+    if (existingUser) { console.log("Username is taken") }
     else { users.push(user); }
 
     // Tell the connecting client what player number they are
@@ -41,11 +41,9 @@ io.on('connection', socket => {
 
 
     const connection = { room, playerId, ready: false };
-    function checkExistingConns(connection) {return connection.room === room && connection.playerId === playerId}
+    function checkExistingConns(connection) { return connection.room === room && connection.playerId === playerId }
     const existingConns = connections.find(checkExistingConns)
     if (!existingConns) connections.push(connection);
-    console.log(users)
-    console.log(connections)
     // Tell eveyone what player number just connected
     socket.in(user.room).emit('player-connection', user.playerId, user.room)
   })
@@ -70,11 +68,9 @@ io.on('connection', socket => {
 
     const connection = { room, playerId, ready: false };
 
-    function checkExistingConns(connection) {return connection.room === room && connection.playerId === playerId}
+    function checkExistingConns(connection) { return connection.room === room && connection.playerId === playerId }
     const existingConns = connections.find(checkExistingConns)
     if (!existingConns) connections.push(connection);
-    console.log(users)
-    console.log(connections)
 
     // Tell eveyone what player number just connected
     socket.in(user.room).emit('player-connection', user.playerId, user.room)
@@ -85,13 +81,13 @@ io.on('connection', socket => {
     console.log(`Player ${user.playerId} disconnected`)
     socket.leave(user.room);
 
-    function checkExistingUser(user) {return user.room ===  user.room && user.playerId === user.playerId}
+    function checkExistingUser(user) { return user.room === user.room && user.playerId === user.playerId }
     const usr = users.findIndex(checkExistingUser)
-    if (usr !== -1) {users.splice(usr, 1);}
+    if (usr !== -1) { users.splice(usr, 1); }
 
-    function checkExistingConns(connection) {return connection.room === user.room && connection.playerId === user.playerId}
+    function checkExistingConns(connection) { return connection.room === user.room && connection.playerId === user.playerId }
     const cn = connections.findIndex(checkExistingConns)
-    if (cn !== -1) {connections.splice(cn, 1);}
+    if (cn !== -1) { connections.splice(cn, 1); }
 
     //Tell everyone what player number just disconnected
     socket.in(user.room).emit('player-connection', user.playerId)
@@ -100,14 +96,13 @@ io.on('connection', socket => {
   // On Ready
   socket.on('player-ready', () => {
     socket.in(user.room).emit('enemy-ready', user.playerId)
-    function checkExistingConns(connection) {return connection.room === user.room && connection.playerId === user.playerId}
+    function checkExistingConns(connection) { return connection.room === user.room && connection.playerId === user.playerId }
 
     const index = connections.findIndex(checkExistingConns)
     const connection = { room: user.room, playerId: user.playerId, ready: true };
     if (index !== -1) {
       connections.splice(index, 1);
       connections.push(connection);
-      console.log(connections)
     }
   })
 
@@ -115,15 +110,15 @@ io.on('connection', socket => {
   socket.on('check-players', () => {
     const players = []
 
-    function checkPlayer0(connection) {return connection.room === user.room && connection.playerId === 0 && connection.ready === false}
-    function checkPlayer0Ready(connection) { return connection.room === user.room && connection.playerId === 0 && connection.ready === true}
+    function checkPlayer0(connection) { return connection.room === user.room && connection.playerId === 0 && connection.ready === false }
+    function checkPlayer0Ready(connection) { return connection.room === user.room && connection.playerId === 0 && connection.ready === true }
     const Player0 = connections.find(checkPlayer0)
     const Player0Ready = connections.find(checkPlayer0Ready)
     if (!Player0) players.push({ connected: false, ready: false })
     else { players.push({ connected: true, ready: Player0Ready }) }
 
-    function checkPlayer1(connection) {return connection.room === user.room && connection.playerId === 1 && connection.ready === false}
-    function checkPlayer1Ready(connection) { return connection.room === user.room && connection.playerId === 1 && connection.ready === true}
+    function checkPlayer1(connection) { return connection.room === user.room && connection.playerId === 1 && connection.ready === false }
+    function checkPlayer1Ready(connection) { return connection.room === user.room && connection.playerId === 1 && connection.ready === true }
     const Player1 = connections.find(checkPlayer1)
     const Player1Ready = connections.find(checkPlayer1Ready)
     if (!Player1) players.push({ connected: false, ready: false })

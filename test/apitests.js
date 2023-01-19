@@ -57,6 +57,7 @@ describe("Login Request with incorrect username",function (){
 });
 
 
+
 describe("Login Request with incorrect password",function (){
     it("Should return 'Invalid Password!'",function (){
         app.post("/api/auth/signin").send({
@@ -68,4 +69,13 @@ describe("Login Request with incorrect password",function (){
     })
 });
 
-message: "Invalid Password!" 
+
+describe("LogOut Request",function (){
+    it("Should return 'You've been signed out!'",function (){
+        app.post("/api/auth/signout").send().end((err,res) =>{
+            expect(res.body.message).to.equal("You've been signed out!" );
+        })
+    })
+});
+
+
