@@ -15,7 +15,8 @@ exports.userBoard = (req, res) => {
 exports.saveScore = (req, res) => {
   const score = new Score({
     username: req.body.username,
-    state: req.body.state
+    state: req.body.state,
+    sinked: req.body.sinked
   });
 
   score.save((err, score) => {
@@ -61,6 +62,6 @@ exports.showScore = (req, res) => {
         return;
       }
       console.log(req.body.username)
-      res.status(200).send({score});
+      res.status(200).send({score,success:true});
     });
 };

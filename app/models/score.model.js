@@ -5,6 +5,7 @@ const Score = mongoose.model(
   new mongoose.Schema({
     username: String,
     state: String,
+    sinked:String,
     date: {
       type: Date,
       default: Date.now(),

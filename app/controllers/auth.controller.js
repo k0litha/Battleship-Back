@@ -81,11 +81,12 @@ exports.signin = (req, res) => {
         req.body.password,
         user.password
       );
-
+      
       if (!passwordIsValid) {
+        
         return res.status(401).send({ message: "Invalid Password!" });
       }
-
+      
       var token = jwt.sign({ id: user.id }, process.env.SECRET, {
         expiresIn: 86400, // 24 hours
       });
