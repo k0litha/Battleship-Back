@@ -19,7 +19,7 @@ pipeline {
   }
     stage('Deliver') {
       steps {
-        bat 'npm start'
+        bat 'START npm start'
         input message: 'Click "Proceed" to stop Backend Server'
       }
   }

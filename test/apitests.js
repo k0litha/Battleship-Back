@@ -83,7 +83,7 @@ describe("Score save Request",function (){
 
 describe("Score show Request",function (){
     it("Should return 'Score retrieved successfully!'",function (){
-        app.post("/api/test/savescore").send().end((err,res) =>{
+        app.post("/api/test/showscore").send().end((err,res) =>{
             expect(res.body.success).to.equal(true);
         })
     })
